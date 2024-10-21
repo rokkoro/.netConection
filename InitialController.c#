@@ -115,3 +115,32 @@ namespace ConectSql.Controllers
         }
     }
 }
+
+--- clas data base
+using ConectSql.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace ConectSql.Datos
+
+
+{
+    public class AplicationDbContext:DbContext
+    {
+
+        public AplicationDbContext(DbContextOptions<AplicationDbContext> options) : base(options)
+        {
+
+        }
+        public DbSet<Contacto> Contactos { get; set; }
+
+    }
+}
+
+
+//configuramos la concion sql server con la db mssql local
+builder.Services.AddDbContext<AplicationDbContext>(opciones =>  opciones.UseSqlServer(builder.Configuration.GetConnectionString("cnx")));
+
+//json
+  "ConnectionStrings": {
+    "cnx": "Data Source=.;Initial Catalog=USERS;Integrated Security=True;Encrypt=True;Trust Server Certificate=True"
+  },
